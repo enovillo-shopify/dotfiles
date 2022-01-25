@@ -4,7 +4,6 @@ source /etc/zsh/zshrc.default.inc.zsh
 alias la="ls -a"
 alias lla="ls -l -a"
 
-
 # The following is modified from /etc/zsh/zshrc.default.inc.zsh
 
 # Show the branch name (%b) in blue, followed by any
