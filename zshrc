@@ -23,4 +23,4 @@ zstyle ':vcs_info:git:*' formats $'%F{154}%b%F{yellow}%m%{\x1b[0m%} '
 # yes => red #
 # no  => blue33 %
 state_color="\033[38;5;33m"
-PROMPT=$'%(?.%{$(echo $state_color)%}꩜ .%F{red}✗%?)%f %B%~%b %{\x1b[1;138;5;33m%}$vcs_info_msg_0_%(!.%F{red}#.%{\x1b[1;38;5;33m%}\n>)%{\x1b[0m%} '
+PROMPT=$'%(?.%{$(echo $state_color)%}꩜ .%F{red}✗%?)%f %B%~%b %{\x1b[1;138;5;33m%}$vcs_info_msg_0_%(!.%F{red}#.%{\x1b[1;38;5;33m%} [%D{%Y-%m-%f %T}]\n>)%{\x1b[0m%} '
