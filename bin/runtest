@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 
 import glob
-import linecache
-import re
 import subprocess
 import sys
 
@@ -20,15 +18,9 @@ def main(args):
         print(f"Test not found: {test_ids[0]}")
 
       elif len(fnames) == 1:
-        line = linecache.getline(fnames[0], int(test_ids[1]))
-        m = re.search("test \"(?P<desc>.*)\" do", line)
-        if m:
-          test_name = f"test_{re.sub(' ', '_', m.group('desc'))}"
-          command = ["bin/rails", "test", fnames[0], "-n", test_name]
-          print(' '.join(command))
-          subprocess.run(command)
-        else:
-          print(f"No test description found in line {test_ids[1]}:\n'{line[:-1]}'")
+        command = ["bin/rails", "test", f"{fnames[0]}:{test_ids[1]}"]
+        print(' '.join(command))
+        subprocess.run(command)
 
       else:
         print(f"Which file?")
