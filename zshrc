@@ -36,3 +36,5 @@ precmd_prompt () {
 }
 precmd_functions+=(precmd_prompt)
 
+export PATH=$PATH:~/dotfiles/bin
+
