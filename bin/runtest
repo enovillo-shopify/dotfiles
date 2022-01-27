@@ -7,26 +7,45 @@ import sys
 
 def main(args):
   if len(args) >= 1:
-    test_ids = args[0].split(":")
+    if ':' in args[0]:
+      test_ids = args[0].split(":")
 
-    if len(test_ids) != 2:
-      print(f"Bad test spec: {args[0]}")
-
-    else:
-      fnames =glob.glob(f"**/{test_ids[0]}_test.rb", recursive = True)
-      if len(fnames) == 0:
-        print(f"Test not found: {test_ids[0]}")
-
-      elif len(fnames) == 1:
-        command = ["bin/rails", "test", f"{fnames[0]}:{test_ids[1]}"]
-        print(' '.join(command))
-        subprocess.run(command)
+      if len(test_ids) != 2:
+        print(f"Bad test spec: {args[0]}")
 
       else:
-        print(f"Which file?")
-        print(*fnames, sep = "\n")
+        fname = get_test_file(test_ids[0])
+        if fname != "":
+          command = ["bin/rails", "test", f"{fname}:{test_ids[1]}"]
+          print(' '.join(command))
+          subprocess.run(command)
+    
+    else:
+        fname = get_test_file(args[0])
+        if fname != "":
+          command = ["bin/rails", "test", fname]
+          print(' '.join(command))
+          subprocess.run(command)
+
   else:
     print("No test file given.")
+
+
+def get_test_file(name):
+  rv = ""
+
+  fnames =glob.glob(f"**/{name}_test.rb", recursive = True)
+  if len(fnames) == 0:
+    print(f"Test file not found: {name}")
+
+  elif len(fnames) == 1:
+    rv = fnames[0]
+
+  else:
+    print(f"Found more than 1 test file with the given name:")
+    print(*fnames, sep = "\n")
+
+  return rv
 
 
 if __name__ == "__main__":
