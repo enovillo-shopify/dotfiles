@@ -48,9 +48,9 @@ def get_test_file(name):
       print(f"{i: >4}: {fname}")
     try:
       index = int(input("> "))
-      if index > 0 and index <= len(fnames):
+      if index > 0 and index < len(fnames):
         rv = fnames[index]
-      else:
+      elif index != 0:
         print("Bad user")
     except ValueError:
       print("Make better choices")
