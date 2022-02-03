@@ -42,8 +42,18 @@ def get_test_file(name):
     rv = fnames[0]
 
   else:
-    print(f"Found more than 1 test file with the given name:")
-    print(*fnames, sep = "\n")
+    fnames.insert(0, "None")
+    print(f"Which of these files would you like to use?")
+    for i, fname in enumerate(fnames):
+      print(f"{i: >4}: {fname}")
+    try:
+      index = int(input("> "))
+      if index > 0 and index <= len(fnames):
+        rv = fnames[index]
+      else:
+        print("Bad user")
+    except ValueError:
+      print("Make better choices")
 
   return rv
 
