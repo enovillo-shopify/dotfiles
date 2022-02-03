@@ -25,14 +25,15 @@ zstyle ':vcs_info:git:*' formats $'%F{154}%b%F{yellow}%m%{\x1b[0m%} '
 # no  => blue33 %
 setopt prompt_subst
 precmd_prompt () {
-  local state_color="\033[38;5;33m"
   local timestamp='[%D{%Y-%m-%f %T}]'
   local timestamp_len=`echo -n $timestamp | wc -m`
 
-  base_prompt=$'%(?.%{$(echo $state_color)%}꩜ .%F{red}✗%?)%f %B%~%b %{\x1b[1;138;5;33m%}$vcs_info_msg_0_%(!.%F{red}#.%{\x1b[1;38;5;33m%}'
+  local state_color="\033[38;5;33m"
+  local base_prompt=$'%(?.%{$(echo $state_color)%}꩜ .%F{red}✗%?)%f %B%~%b $vcs_info_msg_0_%(!.%F{red}#.%{\x1b[1;38;5;33m%})%{\x1b[0m%}'
   local base_prompt_len=$(print -P $base_prompt | sed -E $"s/"$'\E'"\[([0-9]{1,3}((;[0-9]{1,3})*)?)?[m|K]//g" | wc -m)
-  local padding=${(r:$((COLUMNS-$base_prompt_len-$timestamp_len-3)):: :)}
-  PROMPT=$base_prompt$padding$timestamp$'\n> '
+
+  local padding=${(r:$((COLUMNS-$base_prompt_len-$timestamp_len-2)):: :)}
+  PROMPT=$base_prompt$padding%{$(echo $state_color)%}$timestamp$'\n> '
 }
 precmd_functions+=(precmd_prompt)
 
