@@ -39,3 +39,4 @@ precmd_functions+=(precmd_prompt)
 
 export PATH=$PATH:~/dotfiles/bin
 export EDITOR=vim
+export GIT_EDITOR=vim
