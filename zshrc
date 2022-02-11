@@ -32,7 +32,7 @@ precmd_prompt () {
   local base_prompt=$'%(?.%{$(echo $state_color)%}꩜ .%F{red}✗%?)%f %B%~%b $vcs_info_msg_0_%(!.%F{red}#.%{\x1b[1;38;5;33m%})%{\x1b[0m%}'
   local base_prompt_len=$(print -P $base_prompt | sed -E $"s/"$'\E'"\[([0-9]{1,3}((;[0-9]{1,3})*)?)?[m|K]//g" | wc -m)
 
-  local padding=${(r:$((COLUMNS-$base_prompt_len-$timestamp_len-2)):: :)}
+  local padding=${(r:$((COLUMNS-$base_prompt_len-$timestamp_len-3)):: :)}
   PROMPT=$base_prompt$padding%{$(echo $state_color)%}$timestamp$'\n> '
 }
 precmd_functions+=(precmd_prompt)
